@@ -16,26 +16,39 @@ for(let i = 1; i <= T; i++){
     for (let i = 0; i < W; ++i)
         wheels[i] = +line[i];
 
-    console.log(wheels);
-
-    console.log(`Case #${i}: ${solve(N, wheels)}`);
+    console.log(`Case #${i}: ${solve(+N, wheels)}`);
 
 }
 
 function solve(N, wheels){
 
-    let minSteps =  Number.MAX_SAFE_INTEGER;
+    let minSteps = Number.MAX_SAFE_INTEGER;
 
-    for (let i = 0; i < N; ++i){
+    for (let i = 1; i <= N; ++i){
+
+        let currentSteps = 0;
 
         for (let wheel of wheels){
 
+            let back = countBack(wheel, i, N);
+            let forth = Math.abs(wheel - i);
 
+            currentSteps += Math.min(back, forth);
 
         }
 
+        console.log(i + " - " + currentSteps);
+
+        minSteps = Math.min(minSteps, currentSteps);
+
     }
 
-    return null;
+    return minSteps;
+
+}
+
+function countBack(left, right, N){
+
+    return left + N - right;
 
 }
